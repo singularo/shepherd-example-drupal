@@ -1,5 +1,5 @@
 {
-  "name": "universityofadelaide/shepherd-example-drupal",
+  "name": "shepherd/shepherd-example-drupal",
   "description": "Example project created with https://github.com/universityofadelaide/shepherd-drupal-project.",
   "type": "project",
   "license": "GPL-2.0+",
@@ -10,24 +10,20 @@
     }
   ],
   "repositories": [
-    {"type": "git", "url": "https://github.com/previousnext/drush_cmi_tools.git"},
-    {"type": "composer", "url": "https://packages.drupal.org/8"}
+    {"type": "composer", "url": "https://packages.drupal.org/8"},
+    {"type": "path", "url": "~/projects/singularo/shepherd-drupal-scaffold" }
   ],
   "require": {
-    "composer/installers": "^1.2",
-    "drupal-composer/drupal-scaffold": "^2.2",
-    "universityofadelaide/shepherd-drupal-scaffold": "~3.0",
-    "cweagans/composer-patches": "~1.0",
-    "drupal/core": "~8.8",
-    "drush/drush": "~9.0",
-    "drupal/console": "~1.0",
-    "drupal/drush_cmi_tools": "dev-8.x-2.x",
-    "predis/predis": "^1.1",
-    "drupal/redis": "^1.1",
-    "drupal/memcache": "^2.0"
+    "composer/installers": "^1.9",
+    "drupal/core-composer-scaffold": "^9",
+    "drupal/core-project-message": "^9",
+    "drupal/core-recommended": "^9",
+    "singularo/shepherd-drupal-scaffold": "9.0.x-dev",
+    "consolidation/robo": "^2.0",
+    "cweagans/composer-patches": "~1.0"
   },
   "require-dev": {
-    "webflo/drupal-core-require-dev": "~8.8"
+    "drupal/core-dev": "^9"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -35,30 +31,28 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "bin-dir": "bin/"
-  },
-  "scripts": {
-    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-    "shepherd-scaffold": "UniversityOfAdelaide\\ShepherdDrupalScaffold\\Plugin::scaffold",
-    "post-install-cmd": [
-      "@drupal-scaffold",
-      "@shepherd-scaffold"
-    ]
+    "bin-dir": "bin/",
+    "discard-changes": true,
+    "sort-packages": true
   },
   "extra": {
-    "installer-paths": {
-      "web/core":                     ["type:drupal-core"],
-      "web/libraries/{$name}":        ["type:drupal-library"],
-      "web/modules/contrib/{$name}":  ["type:drupal-module"],
-      "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-      "web/themes/contrib/{$name}":   ["type:drupal-theme"],
-      "drush/contrib/{$name}":        ["type:drupal-drush"]
-    },
     "drupal-scaffold": {
-      "initial": {
-        "sites/default/default.services.yml": "sites/default/services.yml",
-        "sites/default/default.settings.php": "sites/default/settings.php"
-      }
+      "locations": {
+        "web-root": "web/"
+      },
+      "allowed-packages": [
+        "singularo/shepherd-drupal-scaffold"
+      ]
+    },
+    "installer-paths": {
+      "web/core": ["type:drupal-core"],
+      "web/libraries/{$name}": ["type:drupal-library"],
+      "web/modules/contrib/{$name}": ["type:drupal-module"],
+      "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+      "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+      "web/themes/contrib/{$name}": ["type:drupal-theme"],
+      "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+      "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
     }
   }
 }
