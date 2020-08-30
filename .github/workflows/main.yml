@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install s2i
         run: |
+          set -x
           REMOTE=$(git remote -v | awk '{ print $2 }' | cut -d'@' -f2 | uniq | sed 's/:/\//' | sed 's/github.com/docker.pkg.github.com/' | sed 's/\.git$//')
           FULLPATH=${REMOTE}/$(basename ${REMOTE})
           wget https://github.com/openshift/source-to-image/releases/download/v1.3.0/source-to-image-v1.3.0-eed2850f-linux-amd64.tar.gz -O /tmp/s2i.tar.gz
