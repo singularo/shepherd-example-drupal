@@ -15,11 +15,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Push to gitHub Packages
-        uses: docker/build-push-action@v1
+      - uses: redhat-cop/github-actions/s2i@master
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: singularo/shepherd-example-drupal/example-drupal
-          tag_with_ref: true
+          base: hub.docker.com/singularo/s2i-shepherd-drupal
+          output_image: docker.pkg.github.com/singularo/shepherd-example-drupal/example-drupal
+          image_push_registry: docker.pkg.github.com
+          image_push_username: ${{ github.actor }}
+          image_push_password: ${{ secrets.GITHUB_TOKEN }}
