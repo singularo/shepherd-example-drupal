@@ -10,15 +10,14 @@
     }
   ],
   "repositories": [
-    {"type": "composer", "url": "https://packages.drupal.org/8"},
-    {"type": "path", "url": "~/projects/singularo/shepherd-drupal-scaffold" }
+    {"type": "composer", "url": "https://packages.drupal.org/8"}
   ],
   "require": {
     "composer/installers": "^1.9",
     "drupal/core-composer-scaffold": "^9",
     "drupal/core-project-message": "^9",
     "drupal/core-recommended": "^9",
-    "singularo/shepherd-drupal-scaffold": "9.0.x-dev",
+    "singularo/shepherd-drupal-scaffold": "dev-use-default-path",
     "consolidation/robo": "^2.0",
     "cweagans/composer-patches": "~1.0"
   },
