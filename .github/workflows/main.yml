@@ -15,10 +15,20 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - uses: redhat-cop/github-actions/s2i@master
+      - name: Install s2i
+        run: |
+          REMOTE=$(git remote -v | awk '{ print $2 }' | cut -d'@' -f2 | uniq | sed 's/:/\//' | sed 's/github.com/docker.pkg.github.com/' | sed 's/\.git$//')
+          FULLPATH=${REMOTE}/$(basename ${REMOTE})
+          wget https://github.com/openshift/source-to-image/releases/download/v1.3.0/source-to-image-v1.3.0-eed2850f-linux-amd64.tar.gz -O /tmp/s2i.tar.gz
+          tar -xzvf /tmp/s2i.tar.gz
+          mv s2i /usr/local/bin/s2i
+          rm -f sti
+          s2i build . ${FULLPATH} ${REMOTE}
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
         with:
-          base: hub.docker.com/singularo/s2i-shepherd-drupal
-          output_image: docker.pkg.github.com/singularo/shepherd-example-drupal/example-drupal
-          image_push_registry: docker.pkg.github.com
-          image_push_username: ${{ github.actor }}
-          image_push_password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: ${FULLPATH}
+          tag_with_ref: true
