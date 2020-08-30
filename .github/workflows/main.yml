@@ -21,7 +21,7 @@ jobs:
           FULLPATH=${REMOTE}/$(basename ${REMOTE})
           wget https://github.com/openshift/source-to-image/releases/download/v1.3.0/source-to-image-v1.3.0-eed2850f-linux-amd64.tar.gz -O /tmp/s2i.tar.gz
           tar -xzvf /tmp/s2i.tar.gz
-          ./s2i build . ${FULLPATH} $(basename ${REMOTE})
+          ./s2i build . singularo/s2i-shepherd-drupal ${FULLPATH}
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
