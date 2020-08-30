@@ -24,4 +24,4 @@ jobs:
           tar -xzvf /tmp/s2i.tar.gz
           ./s2i build . singularo/s2i-shepherd-drupal ${FULLPATH}
           docker login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
-          docker push ${REMOTE}
+          docker push ${FULLPATH}
