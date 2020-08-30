@@ -5,8 +5,8 @@
   "license": "GPL-2.0+",
   "authors": [
     {
-      "name": "",
-      "role": ""
+      "name": "Simon Lindsay",
+      "role": "Developer"
     }
   ],
   "repositories": [
@@ -22,6 +22,7 @@
     "cweagans/composer-patches": "~1.0"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
     "drupal/core-dev": "^9"
   },
   "conflict": {

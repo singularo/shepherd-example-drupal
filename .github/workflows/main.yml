@@ -1,21 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
+#
+# Basic github workflow for shepherd-example-drupal
+#
 name: Publish docker image
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ 9.0.x ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_and_push_to_registry:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Install s2i
+      - name: Install s2i, build, login and push.
         run: |
           set -x
           REMOTE=$(git remote -v | awk '{ print $2 }' | cut -d'@' -f2 | uniq | sed 's/https:\/\///' | sed 's/:/\//' | sed 's/github.com/docker.pkg.github.com/' | sed 's/\.git$//')
